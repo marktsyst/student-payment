@@ -2,10 +2,7 @@ package edu.javacourse.student.business;
 
 import edu.javacourse.student.dao.StreetRepository;
 import edu.javacourse.student.dao.StudentOrderRepository;
-import edu.javacourse.student.domain.Address;
-import edu.javacourse.student.domain.Person;
-import edu.javacourse.student.domain.Street;
-import edu.javacourse.student.domain.StudentOrder;
+import edu.javacourse.student.domain.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,8 +37,8 @@ public class StudentOrderService
         LOG.info(sos.get(0).getWife().getGivenName());
     }
 
-    private Person buildPerson(boolean wife) {
-        Person p = new Person();
+    private Adult buildPerson(boolean wife) {
+        Adult p = new Adult();
         p.setDateOfBirth(LocalDate.now());
         Address a = new Address();
         a.setPostCode("190000");
@@ -55,10 +52,16 @@ public class StudentOrderService
             p.setSurName("Рюрик");
             p.setGivenName("Марфа");
             p.setPatronymic("Васильевна");
+            p.setPassportSeria("WIFE_S");
+            p.setPassportNumber("WIFE_N");
+            p.setIssueDate(LocalDate.now());
         } else {
             p.setSurName("Рюрик");
             p.setGivenName("Иван");
             p.setPatronymic("Васильевич");
+            p.setPassportSeria("HUSB_S");
+            p.setPassportNumber("HUSB_N");
+            p.setIssueDate(LocalDate.now());
         }
         return p;
     }

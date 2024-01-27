@@ -1,22 +1,9 @@
 package edu.javacourse.student.domain;
 
-import javax.persistence.AssociationOverride;
-import javax.persistence.AssociationOverrides;
-import javax.persistence.AttributeOverride;
-import javax.persistence.AttributeOverrides;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Embedded;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "jc_student_order")
@@ -82,6 +69,9 @@ public class StudentOrder
     private RegisterOffice registerOffice;
     @Column(name = "marriage_date")
     private LocalDate marriageDate;
+    @OneToMany(cascade = {CascadeType.REFRESH, CascadeType.REMOVE}, fetch = FetchType.LAZY,
+            mappedBy = "studentOrder")
+    private List<StudentOrderChild> children;
 
     public StudentOrder() {
     }
@@ -148,5 +138,13 @@ public class StudentOrder
 
     public void setMarriageDate(LocalDate marriageDate) {
         this.marriageDate = marriageDate;
+    }
+
+    public List<StudentOrderChild> getChildren() {
+        return children;
+    }
+
+    public void setChildren(List<StudentOrderChild> children) {
+        this.children = children;
     }
 }
